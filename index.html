@@ -334,6 +334,7 @@
                 <div class="row"><span>Laufzeit</span><b id="dUptime">–</b></div>
                 <div class="row"><span>Java-Speicher</span><b id="dHeap">–</b></div>
                 <div class="row"><span>Auto-Start beim Join</span><b id="dWake">–</b></div>
+                <div class="row"><span>Secret-Server</span><b id="dSecret">–</b></div>
               </div>
             </div>
             <div class="card"><div class="card-h">Online <span class="sub" id="onlineCount"></span></div><div class="players" id="playerList"><span class="empty">Niemand online</span></div></div>
@@ -563,6 +564,8 @@
     $('dVersion').textContent = s.version ? 'Paper ' + s.version : '–';
     $('dUptime').textContent = fmtUp(s.uptime);
     $('dHeap').textContent = s.ramUsed != null ? `${(s.ramUsed / 1024).toFixed(1)} / ${(s.ramMax / 1024).toFixed(1)} GB` : '–';
+    $('dSecret').textContent = ({ online: '● Online', starting: 'Startet …', offline: 'Aus (startet gleich automatisch)', off: 'Autostart aus' })[s.secret] || '–';
+    $('dSecret').style.color = s.secret === 'online' ? 'var(--green)' : s.secret === 'starting' ? 'var(--yellow)' : '';
     $('dWake').textContent = state === 'offline' ? (s.flag ? 'aktiv' : 'aus') : '–';
     const list = s.players || [];
     $('onlineCount').textContent = list.length || '';
